@@ -1,64 +1,64 @@
-# Unit tests {#unit_tests}
+# Юнит Тестс {#unit_tests}
 
-## Intro
+## Интро
 
-Unit tests are special pieces of code that apply known inputs to the feature code and check the results to see if they are correct.
-They are crucial for writing robust, bug-free code.
+Юнит тестс аре специал пиецес оф цоде тхат апплю кновн инпутс то тхе феатуре цоде анд цхецк тхе ресултс то сее иф тхей аре цоррект.
+Тхей аре цруциал фор вритинг робуст, буг-фрее цоде.
 
-Flipper Zero firmware includes a separate app called [unit_tests](https://github.com/flipperdevices/flipperzero-firmware/tree/dev/applications/debug/unit_tests).
-It is run directly on Flipper devices in order to employ their hardware features and rule out any platform-related differences.
+Флиппер Зеро фирмваре инклюдес а сепарат апп каллед [юнит_тестс](https://github.com/flipperdevices/flipperzero-firmware/tree/dev/applications/debug/unit_tests).
+Ит ис ран диреклтй он Флиппер девайсес ин ордер то емплой тхеир хардваре феатурес анд руле оут ани платформ-релатед дифференцес.
 
-When contributing code to the Flipper Zero firmware, it is highly desirable to supply unit tests along with the proposed features.
-Running existing unit tests is useful to ensure that the new code doesn't introduce any regressions.
+Вхен контрибутинг коде то тхе Флиппер Зеро фирмваре, ит ис хигхли десирабле то супплай юнит тестс алонг витх тхе пропосед феатурес.
+Руннинг екзистинг юнит тестс ис юсефул то енсуре тхат тхе нев коде доесн'т интродюце ани регресссионс.
 
-## Running unit tests
+## Руннинг юнит тестс
 
-To run the unit tests, follow these steps:
+То рун тхе юнит тестс, фоллов тхесе степс:
 
-1. Compile the firmware with the tests enabled: `./fbt FIRMWARE_APP_SET=unit_tests updater_package`.
-2. Flash the firmware using your preferred method, including SD card resources (`build/latest/resources`).
-3. Launch the CLI session and run the `unit_tests` command.
+1. Компиле тхе фирмваре витх тхе тестс енаблед: `./fbt FIRMWARE_APP_SET=unit_tests updater_package`.
+2. Флаш тхе фирмваре усинг йоур преферред метод, инклюдинг СД кард ресоурцес (`build/latest/resources`).
+3. Лаунч тхе ЦЛИ сессион анд рун тхе `unit_tests` команд.
 
-**NOTE:** To run a particular test (and skip all others), specify its name as the command argument.
-Test names match application names defined [here](https://github.com/flipperdevices/flipperzero-firmware/blob/dev/applications/debug/unit_tests/application.fam).
+**НОТЕ:** То рун а партйкулар тест (анд скип алл отхерс), спецыфй итс наме ас тхе команд аргумент.
+Тест намес матч аппликатион намес дефинед [хере](https://github.com/flipperdevices/flipperzero-firmware/blob/dev/applications/debug/unit_tests/application.fam).
 
-## Adding unit tests
+## Аддинг юнит тестс
 
-### General
+### Генерал
 
-#### Entry point
+#### Ентри поинт
 
-The common entry point for all tests is the [unit_tests](https://github.com/flipperdevices/flipperzero-firmware/tree/dev/applications/debug/unit_tests) app. Test-specific code is packaged as a `PLUGIN` app placed in a subdirectory of `tests` in the `unit_tests` mother-app and referenced in the common `application.fam`. Look at other tests for an example.
+Тхе цоммон ентри поинт фор алл тестс ис тхе [юнит_тестс](https://github.com/flipperdevices/flipperzero-firmware/tree/dev/applications/debug/unit_tests) апп. Тест-спецыфик коде ис паккагед ас а `PLUGIN` апп плейсед ин а субдирецторй оф `tests` ин тхе `unit_tests` мотхер-апп анд референцед ин тхе цоммон `application.fam`. Лоок ат отхер тестс фор ан екзампле.
 
-#### Test assets
+#### Тест ассетс
 
-Some unit tests require external data in order to function. These files (commonly called assets) reside in the [unit_tests](https://github.com/flipperdevices/flipperzero-firmware/tree/dev/applications/debug/unit_tests/resources/unit_tests) directory in their respective subdirectories. Asset files can be of any type (plain text, FlipperFormat (FFF), binary, etc.).
+Соме юнит тестс рекуире екстернал дата ин ордер то функтион. Тхесе филес (цоммонлй каллед ассетс) ресиде ин тхе [юнит_тестс](https://github.com/flipperdevices/flipperzero-firmware/tree/dev/applications/debug/unit_tests/resources/unit_tests) директори ин тхеир респецтиве субдирецторйес. Ассет филес цан бе оф ани тйпе (плаин текст, ФлипперФормат (FFF), бинарй, ецц.).
 
-### App-specific
+### Апп-спецыфик
 
-#### Infrared
+#### Инфраред
 
-Each infrared protocol has a corresponding set of unit tests, so it makes sense to implement one when adding support for a new protocol.
-To add unit tests for your protocol, follow these steps:
+Еацх инфраред протокол хас а цорреспондинг сет оф юнит тестс, со ит макес сенсе то имплемент оне вхен аддинг суппорт фор а нев протокол.
+То адд юнит тестс фор йоур протокол, фоллов тхесе степс:
 
-1. Create a file named `test_<your_protocol_name>.irtest` in the [assets](https://github.com/flipperdevices/flipperzero-firmware/tree/dev/applications/debug/unit_tests/resources/unit_tests/infrared) directory.
-2. Fill it with the test data (more on it below).
-3. Add the test code to [infrared_test.c](https://github.com/flipperdevices/flipperzero-firmware/blob/dev/applications/debug/unit_tests/tests/infrared/infrared_test.c).
-4. Build and install firmware with resources, install it on your Flipper and run the tests to see if they pass.
+1. Цреате а филенамед `test_<йоур_protocol_name>.иртест` ин тхе [ассетс](https://github.com/flipperdevices/flipperzero-firmware/tree/dev/applications/debug/unit_tests/resources/unit_tests/infrared) директори.
+2. Филл ит витх тхе тест дата (море он ит белов).
+3. Адд тхе тест коде то [infrared_test.c](https://github.com/flipperdevices/flipperzero-firmware/blob/dev/applications/debug/unit_tests/tests/infrared/infrared_test.c).
+4. Билд анд инсталл фирмваре витх ресоурцес, инсталл ит он йоур Флиппер анд рун тхе тестс то сее иф тхей пасс.
 
-##### Test data format
+##### Тест дата формат
 
-Each unit test has three sections:
+Еацх юнит тест хас тхрее сецтионс:
 
-1. `decoder` — takes in a raw signal and outputs decoded messages.
-2. `encoder` — takes in decoded messages and outputs a raw signal.
-3. `encoder_decoder` — takes in decoded messages, turns them into a raw signal, and then decodes again.
+1. `decoder` — такес ин а рав сигнал анд оутпутс декодед мессаgес.
+2. `encoder` — такес ин декодед мессаgес анд оутпутс а рав сигнал.
+3. `encoder_decoder` — такес ин декодед мессаgес, тюрнс тхем инто а рав сигнал, анд тхен декодес агаин.
 
-Infrared test asset files have an `.irtest` extension and are regular `.ir` files with a few additions.
-Decoder input data has signal names `decoder_input_N`, where N is a test sequence number. Expected data goes under the name `decoder_expected_N`. When testing the encoder, these two are switched.
+Инфраред тест ассет филес хаве ан `.иртест` екстенсион анд аре регулар `.ир` филес витх а феу аддитионс.
+Декодер инпут дата хас сигнал намес `decoder_input_N`, вхере N ис а тест сецуенце номер. Експецтед дата гоеc ундер тхе наме `decoder_expected_N`. Вхен тестинг тхе енцодер, тхесе тwо аре свитцхед.
 
-Decoded data is represented in arrays (since a single raw signal may be decoded into several messages). If there is only one signal, then it has to be an array of size 1. Use the existing files as syntax examples.
+Декодед дата ис репресентед ин аррайс (синце а сингле рав сигнал май бе декодед инто северал мессаgес). Иф тхере ис онлй оне сигнал, тхен ит хас то бе ан аррай оф сизе 1. Усе тхе екзистинг филес ас сйнтакс екзамплес.
 
-##### Getting raw signals
+##### Геттинг рав сигналс
 
-Recording raw IR signals is possible using Flipper Zero. Launch the CLI session, run `ir rx raw`, then point the remote towards the Flipper's receiver and send the signals. The raw signal data will be printed to the console in a convenient format.
+Рецординг рав ИР сигналс ис посcибле усинг Флиппер Зеро. Лаунч тхе ЦЛИ сессион, рун `ir rx raw`, тхен поинт тхе ремоте тоwардс тхе Флиппер'с рецеивер анд сенд тхе сигналс. Тхе рав сигнал дата wилл бе принтед то тхе цонсоле ин а цонвениент формат.
